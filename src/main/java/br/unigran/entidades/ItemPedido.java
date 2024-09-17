@@ -1,35 +1,25 @@
 package br.unigran.entidades;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class ItemPedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
     private Item item;
+
+    @ManyToMany
+    @JoinTable(
+            name = "item_pedido_adicional",
+            joinColumns = @JoinColumn(name = "item_pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "adicional_id")
+    )
     private List<Adicional> adicionais;
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    public List<Adicional> getAdicionais() {
-        return adicionais;
-    }
-
-    public void setAdicionais(List<Adicional> adicionais) {
-        this.adicionais = adicionais;
-    }
-
-    @Override
-    public String toString()
-    {
-        String retorno = this.item.getNome()+"\n";
-        for(Adicional a : adicionais)
-        {
-            retorno += "  - "+a.getNome();
-        }
-        return retorno;
-    }
+    private int quantidade;
 }
