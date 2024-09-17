@@ -13,13 +13,9 @@ public class ItemPedido {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @ManyToMany
-    @JoinTable(
-            name = "item_pedido_adicional",
-            joinColumns = @JoinColumn(name = "item_pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "adicional_id")
-    )
-    private List<Adicional> adicionais;
+    @Column(name = "valor")
+    private double valor;
 
+    @Column(name = "quantidade")
     private int quantidade;
 }
